@@ -153,8 +153,8 @@ async def forward_messages_to_groups(client, last_message, session_name):
                 print(Fore.RED + f"[{session_name}] Failed to forward to {group.title}: {str(e)}")
                 logging.error(f"[{session_name}] Failed to forward to {group.title}: {str(e)}")
 
-            # Random delay between 0-1 seconds
-            delay = random.randint(0, 1)
+            # Random delay between 0-3 seconds
+            delay = random.randint(0, 3)
             print(Fore.CYAN + f"[{session_name}] Waiting {delay} seconds before next group...")
             await asyncio.sleep(delay)
 
@@ -188,7 +188,7 @@ async def run_session(session_num, client):
         # Start auto-reply
         await setup_auto_reply(client, session_name)
         
-        # Continuous forwarding with 5 minute intervals
+        # Continuous forwarding with 7 minute intervals
         while True:
             last_message = await get_last_saved_message(client)
             if last_message:
@@ -197,7 +197,7 @@ async def run_session(session_num, client):
                 print(Fore.RED + f"[{session_name}] No saved message found")
             
             print(Fore.YELLOW + f"[{session_name}] Waiting 15 minutes before next round...")
-            await asyncio.sleep(300)  # 5 minutes
+            await asyncio.sleep(420)  # 7 minutes
             
     except UserDeactivatedBanError:
         print(Fore.RED + f"[{session_name}] Account banned")
